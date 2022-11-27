@@ -1,0 +1,162 @@
+header{
+    text-align: center;
+    font-size: 30px;
+    color: rgb(96, 41, 148);
+    margin-top: 40px;
+  }
+  #enter
+  {
+    text-decoration: none;
+    width: 400px;
+    height: 35px;
+    border-radius: 10px;
+    border: 2px solid rgb(205, 203, 203);
+    margin-top: 30px;
+    margin-left: 65%;
+    
+  }
+  ::placeholder{
+    color: rgb(205, 203, 203);
+    font-size: 17px;
+    padding: 4%;
+    
+  
+  }
+  
+  .card
+  {
+    width: 400px;
+    background-color: rgb(30, 30, 70);
+    text-align: center;
+    height: 300px;
+    border-radius: 10px;
+    margin-left: 20px;
+    
+  }
+  
+  .head1
+  {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 10px;
+  
+  }
+  .type
+  {
+    color: white;
+    font-size: 19px;
+    font-weight: bold;
+    padding-top: 10px;
+  }
+  #flag{
+    width: 25px;
+    height: 20px;
+    border-radius: 50px;
+    margin-top: 30px;
+  
+  }
+  #crown
+  {
+  position: absolute;
+  margin-top: 15px;
+  
+  
+  }
+  .firstname
+  {
+    position:relative;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+  
+  }
+  
+  .between{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    height: 100px;
+  }
+  .first
+  {
+    width: 130px;
+   
+  
+  }
+  .second
+  {
+    width: 140px;
+  }
+  .third
+  {
+    width: 130px;
+  }
+  .versus
+  {
+    color: white;
+    font-weight: bold;
+  }
+  .score
+  {
+    width: 140px;
+    height: 30px;
+    background-color: rgb(77, 152, 152);
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    margin-top: 25px;
+  
+  }
+  .main
+  {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  
+  
+  @media (max-width:1258px)
+  {
+    #enter
+  {
+      margin-left: 52%;
+  }
+  }
+  @media (max-width:840px)
+  {
+    #enter
+  {
+      margin-left: 26%;
+      width: 380px;
+  }
+  }
+  @media (max-width:728px)
+  {
+    #enter
+  {
+      margin-left:23%;
+      width: 370px;
+  }
+  }
+  @media (max-width:600px)
+  {
+    #enter
+  {
+      margin-left:14%;
+      width: 370px;
+  }
+  }
+  @media (max-width:400px)
+  {
+    #enter
+  {
+      margin-left:5%;
+      width: 370px;
+  }
+  }
