@@ -1,102 +1,89 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
+import InfiniteScroll from "react-infinite-scroll-component";
 import './Matches.css';
-
-
-function RenderingArrayOfObjects() {
-   
-   fetch("https://matchday.ai/referee/champ/fixture/dummy-matches?page=0")
-   .then((response)=>{
-    return response.json();
-   })
-   .then((data)=>{
-    console.log(data);
-   });
-  
-
-  const arr = [
-    {
-      "type": "Final",
-      "firstname": "Kartikey Gulshan Kumar",
-      "score": "9-21,21-10,21-15",
-      "secondname": "Alap Mishra"
-    },
-    {
-      "type": "Final",
-      "firstname": "Kartikey Gulshan Kumar",
-      "score": "9-21,21-10,21-15",
-      "secondname": "Alap Mishra"
-    },
-    {
-      "type": "Final",
-      "firstname": "Kartikey Gulshan Kumar",
-      "score": "9-21,21-10,21-15",
-      "secondname": "Alap Mishra"
-    },
-    {
-      "type": "Final",
-      "firstname": "Kartikey Gulshan Kumar",
-      "score": "9-21,21-10,21-15",
-      "secondname": "Alap Mishra"
-    },
-    {
-      "type": "Final",
-      "firstname": "Kartikey Gulshan Kumar",
-      "score": "9-21,21-10,21-15",
-      "secondname": "Alap Mishra"
-    },
-    {
-      "type": "Final",
-      "firstname": "Kartikey Gulshan Kumar",
-      "score": "9-21,21-10,21-15",
-      "secondname": "Alap Mishra"
-    }
-  ]
-  const listItems = arr.map((element) => {
-    return (
-        
-  
-      <div className="main">
-        <a   style={{textDecoration:"none"}}><div className="card">
-          <p className="head1">All Senior Ranking Badminton Tournament</p>
-          <span className="type">{element.type}</span>
-          <div className='between'>
-            <div className='first'>
-              <img src="https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F08f830ae-ce65-42f5-b243-b7a3f8a15b5f%2Fcrown.png?table=block&id=11d166ac-814d-4227-853f-40ada51bf632&spaceId=0c204483-284c-45aa-a8f3-e48b05979d20&userId=9753495c-0031-457c-af00-98eecfb93aa7&cache=v2" id="crown" />
-              <img src='https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_India.svg' id='flag' />
-              <div className='firstname'>{element.firstname}</div>
-            </div>
-            <div className='second'>
-              <div className='versus'>V/S</div>
-              <div className='score'>
-                {element.score}
-              </div>
-              <img src='https://www.notion.so/signed/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fda00ca61-beb4-4735-8ff8-f6cff8597fc3%2Flogo_white.png?table=block&id=8e435d38-571b-4023-a052-a8516ebb7be7&spaceId=0c204483-284c-45aa-a8f3-e48b05979d20&userId=9753495c-0031-457c-af00-98eecfb93aa7&cache=v2' id='logo' />
-            </div>
-            <div className='third'>
-              <img src='https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_India.svg' id='flag' />
-              <div className='firstname'>{element.secondname}</div>
-            </div>
-          </div>
-        </div></a>
-      </div>
-
-
-    )
-  })
-  return <div className='main'>
-    {listItems}
-  </div>
-}
+import Crown from "./images/crown.png";
+import Flag from "./images/flag.svg";
+import Logo from "./images/logo.png";
 function Matches() {
-  
-  return (
-    <>
-      <header>International Matches</header>
-      <input id="enter" type="text" placeholder=" &#128270; Search for matches" />
 
-      <RenderingArrayOfObjects />
-    </>
+
+  const [items, setItems] = useState([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [text, setText] = useState("");
+
+  // const search=()=>{
+
+  // }
+  const fetchData = (setItems, items) => {
+    axios.get(`https://matchday.ai/referee/champ/fixture/dummy-matches?page=${page}`, {
+      headers: {
+        'x-apikey': '59a7ad19f5a9fa0808f11931',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      }
+    }).then((res) => {
+      let data = res.data.fixtures;
+      setItems([...items, ...data]);
+      setPage(page + 1);
+      setHasMore(res.data.hasMorePage);
+    })
+  }
+  useEffect(() => {
+    fetchData(setItems, items);
+  },)
+
+  return (
+    <div>
+      <header>International Matches</header>
+      <input onChange={(event) => {
+        setText(event.currentTarget.value)
+      }} id="enter" type="text" placeholder=" &#128270; Search for matches" value={text} />
+      <InfiniteScroll
+        dataLength={items.length}
+        next={fetchData}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p style={{ textAlign: 'center' }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+
+        {items.map((user) => {
+          return (
+            <div className='main'>
+              <a style={{ textDecoration: "none" }} ><div className="card">
+                <p className="head1">All Senior Ranking Badminton Tournament</p>
+                <span className="type">Final</span>
+                <div className='between'>
+                  <div className='first'>
+                    <img src={Crown} id="crown" />
+                    <img src={Flag} id='flag' />
+                    <div className='firstname'>{user.team1[0].name}</div>
+                  </div>
+                  <div className='second'>
+                    <div className='versus'>V/S</div>
+                    <div className='score'>
+                      {user.a1}-{user.b1},{user.a2}-{user.b2},{user.a3}-{user.b3}
+                    </div>
+                    <img src={Logo} id='logo' />
+                  </div>
+                  <div className='third'>
+                    <img src={Flag} id='flag' />
+                    <div className='firstname'>{user.team2[0].name}</div>
+                  </div>
+                </div>
+              </div></a>
+            </div>
+          )
+
+        })}
+      </InfiniteScroll>
+    </div>
   );
 }
 

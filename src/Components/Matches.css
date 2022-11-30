@@ -77,7 +77,7 @@ header{
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 20px;
     height: 100px;
   }
   .first
@@ -116,7 +116,7 @@ header{
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 30px;
+
   }
   
   
